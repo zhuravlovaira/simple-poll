@@ -1,1 +1,68 @@
-<p>poll-creator works!</p>
+<form [formGroup]="form">
+  <span class="p-float-label question">
+    <input
+      id="float-input"
+      formControlName="question"
+      class="question__input"
+      type="text"
+      pInputText
+      placeholder="What is the value of P?"
+    />
+    <label for="float-input">Poll question</label>
+  </span>
+
+  <div *ngFor="let answer of answers.controls; let i = index" class="answer">
+    <span class="p-float-label answer__input-wrap">
+      <input
+        [formControl]="answer"
+        type="text"
+        class="answer__input"
+        pInputText
+      />
+    </span>
+
+    <button
+      (click)="removeAnswer(i)"
+      pButton
+      pRipple
+      type="button"
+      icon="pi pi-times"
+      class="p-button-rounded p-button-danger p-button-outlined answer__delete-button"
+    ></button>
+  </div>
+
+  <div *ngIf="answers.value.length < maxAnswersAmount" class="answer">
+    <span class="p-float-label answer__input-wrap">
+      <input
+        formControlName="newAnswer"
+        (keyup.enter)="addAnswer(form.get('newAnswer')?.value)"
+        type="text"
+        class="answer__input"
+        pInputText
+      />
+    </span>
+
+    <button
+      (click)="addAnswer(form.get('newAnswer')?.value)"
+      pButton
+      pRipple
+      type="button"
+      label="Add"
+      class="p-button-outlined answer__delete-button"
+    ></button>
+  </div>
+</form>
+
+<div class="settings">
+  <span>
+    {{ answers.value.length }} / {{ maxAnswersAmount }} possible answers</span
+  >
+  <button
+    (click)="reset()"
+    pButton
+    pRipple
+    type="button"
+    label="Reset"
+    class="p-button-outlined p-button-warning"
+  ></button>
+</div>

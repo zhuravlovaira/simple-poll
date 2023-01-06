@@ -1,5 +1,16 @@
-<app-poll-creator></app-poll-creator>
+<h1 class="title">Sir Vote-a-lot</h1>
 
-<app-voter></app-voter>
-
-<app-poll-chart></app-poll-chart>
+<section class="poll">
+  <div class="poll__section">
+    <app-poll-creator
+      (questionChange)="onQuestionChange($event)"
+      (answersChange)="onAnswersChange($event)"
+    ></app-poll-creator>
+  </div>
+  <div class="poll__section">
+    <app-voter [question]="question" [answers]="answers"></app-voter>
+  </div>
+  <div class="poll__section">
+    <app-poll-chart [question]="question"></app-poll-chart>
+  </div>
+</section>

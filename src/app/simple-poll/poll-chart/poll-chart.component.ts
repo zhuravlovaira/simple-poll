@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-poll-chart',
@@ -6,4 +6,6 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   styleUrls: ['./poll-chart.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class PollChartComponent {}
+export class PollChartComponent {
+  @Input() question: string = '';
+}

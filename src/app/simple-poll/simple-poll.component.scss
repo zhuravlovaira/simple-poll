@@ -1,0 +1,27 @@
+:host {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+.poll {
+  display: flex;
+  flex: 1;
+
+  &__section {
+    border-top: 1px solid grey;
+    border-right: 1px solid grey;
+    display: flex;
+    flex: 1;
+    padding: 40px 20px;
+  }
+
+  &__section:last-child {
+    border-right: 0;
+  }
+}
+
+.title {
+  margin: 0;
+  padding: 20px;
+}

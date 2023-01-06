@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-voter',
@@ -6,4 +6,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   styleUrls: ['./voter.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class VoterComponent {}
+export class VoterComponent {
+  @Input() question: string = '';
+  @Input() answers: string[] = [];
+}

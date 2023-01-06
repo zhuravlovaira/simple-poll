@@ -6,4 +6,15 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   styleUrls: ['./simple-poll.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SimplePollComponent {}
+export class SimplePollComponent {
+  question = '';
+  answers: string[] = [];
+
+  onQuestionChange(question: string) {
+    this.question = question;
+  }
+
+  onAnswersChange(answers: string[]) {
+    this.answers = answers;
+  }
+}
