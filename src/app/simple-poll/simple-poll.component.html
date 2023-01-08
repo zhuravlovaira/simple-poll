@@ -4,13 +4,23 @@
   <div class="poll__section">
     <app-poll-creator
       (questionChange)="onQuestionChange($event)"
-      (answersChange)="onAnswersChange($event)"
+      (answerChange)="onAnswerChange($event)"
+      (answerAdd)="onAnswerAdd($event)"
+      (answerDelete)="onAnswerDelete($event)"
+      (answersReset)="onAnswersReset()"
     ></app-poll-creator>
   </div>
   <div class="poll__section">
-    <app-voter [question]="question" [answers]="answers"></app-voter>
+    <app-voter
+      [question]="question"
+      [answers]="answers$ | async"
+      (addVote)="onAddVote($event)"
+    ></app-voter>
   </div>
   <div class="poll__section">
-    <app-poll-chart [question]="question"></app-poll-chart>
+    <app-poll-chart
+      [question]="question"
+      [answers]="answers$ | async"
+    ></app-poll-chart>
   </div>
 </section>

@@ -16,6 +16,7 @@
 
 .answer {
   display: flex;
+  align-items: flex-start;
   margin-bottom: 20px;
 
   &__input-wrap {

@@ -9,6 +9,9 @@
       placeholder="What is the value of P?"
     />
     <label for="float-input">Poll question</label>
+    <small *ngIf="form.get('question')?.errors?.maxlength" class="p-error block"
+      >Maximum amount of characters is {{ maxCharactersAmount }}</small
+    >
   </span>
 
   <div *ngFor="let answer of answers.controls; let i = index" class="answer">
@@ -19,10 +22,20 @@
         class="answer__input"
         pInputText
       />
+      <ng-container
+        *ngIf="answer?.invalid && (answer?.dirty || answer?.touched)"
+      >
+        <small *ngIf="answer?.errors?.maxlength" class="p-error block"
+          >Maximum amount of characters is {{ maxCharactersAmount }}</small
+        >
+        <small *ngIf="answer?.errors?.required" class="p-error block"
+          >Field is required</small
+        >
+      </ng-container>
     </span>
 
     <button
-      (click)="removeAnswer(i)"
+      (click)="removeAnswer(i, answer)"
       pButton
       pRipple
       type="button"
@@ -40,10 +53,24 @@
         class="answer__input"
         pInputText
       />
+
+      <ng-container
+        *ngIf="
+          form.get('newAnswer')?.invalid &&
+          (form.get('newAnswer')?.dirty || form.get('newAnswer')?.touched)
+        "
+      >
+        <small
+          *ngIf="form.get('newAnswer')?.errors?.maxlength"
+          class="p-error block"
+          >Maximum amount of characters is {{ maxCharactersAmount }}</small
+        >
+      </ng-container>
     </span>
 
     <button
       (click)="addAnswer(form.get('newAnswer')?.value)"
+      [disabled]="!this.form.get('newAnswer')?.valid"
       pButton
       pRipple
       type="button"

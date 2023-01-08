@@ -1,1 +1,27 @@
-{{ question }}
+<div>
+  <span class="title">{{ question }}</span>
+
+  <div
+    *ngFor="let answer of answersKeys; let i = index"
+    class="radio-button p-field-checkbox"
+  >
+    <p-radioButton
+      [inputId]="i"
+      [value]="answer"
+      [(ngModel)]="selectedAnswer"
+    ></p-radioButton>
+    <label class="radio-button__label" [for]="i">{{ answer }}</label>
+  </div>
+</div>
+
+<div class="settings">
+  <button
+    (click)="vote()"
+    [disabled]="answersKeys.length === 0 || !selectedAnswer"
+    pButton
+    pRipple
+    type="button"
+    label="Vote"
+    class="p-button-outlined p-button-primary"
+  ></button>
+</div>
