@@ -7,7 +7,6 @@ import {
   Output,
 } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
-import { noWhitespace } from 'libs/utils/validators/no-whitespace/no-whitespace.validator';
 import {
   debounceTime,
   distinctUntilChanged,
@@ -17,6 +16,7 @@ import {
   Subject,
   takeUntil,
 } from 'rxjs';
+import { noWhitespace } from 'src/libs/utils/validators/no-whitespace/no-whitespace.validator';
 import { AnswerChangeParams } from './answer-change-params.interface';
 
 @Component({
