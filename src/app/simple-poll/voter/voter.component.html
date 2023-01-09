@@ -1,5 +1,16 @@
 <div>
-  <span class="title">{{ question }}</span>
+  <span *ngIf="question" class="title">{{ question }}</span>
+
+  <p-message
+    *ngIf="answersKeys.length < minimumItems"
+    severity="warn"
+    text="To start voting add at least 2 items"
+  ></p-message>
+  <p-message
+    *ngIf="answersKeys.length >= minimumItems"
+    severity="success"
+    text="Please make your choice"
+  ></p-message>
 
   <div
     *ngFor="let answer of answersKeys; let i = index"
@@ -7,8 +18,9 @@
   >
     <p-radioButton
       [inputId]="i"
-      [value]="answer"
-      [(ngModel)]="selectedAnswer"
+      [value]="i"
+      [(ngModel)]="selectedIndex"
+      [disabled]="answersKeys.length < minimumItems"
     ></p-radioButton>
     <label class="radio-button__label" [for]="i">{{ answer }}</label>
   </div>
@@ -17,7 +29,11 @@
 <div class="settings">
   <button
     (click)="vote()"
-    [disabled]="answersKeys.length === 0 || !selectedAnswer"
+    [disabled]="
+      answersKeys.length < minimumItems ||
+      selectedIndex === undefined ||
+      selectedIndex === null
+    "
     pButton
     pRipple
     type="button"

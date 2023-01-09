@@ -13,7 +13,14 @@
     border-right: 1px solid grey;
     display: flex;
     flex: 1;
-    padding: 40px 20px;
+    padding: 40px 20px 10px;
+  }
+
+  &__component {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    justify-content: space-between;
   }
 
   &__section:last-child {

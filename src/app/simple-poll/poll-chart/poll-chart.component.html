@@ -1,5 +1,9 @@
-<span class="title">{{ question }}</span>
+<div>
+  <span *ngIf="question" class="title">{{ question }}</span>
 
-<div class="card">
-  <p-chart type="bar" [data]="basicData"></p-chart>
+  <div class="card">
+    <p-chart type="bar" [data]="basicData"></p-chart>
+  </div>
 </div>
+
+<div class="settings">Total votes: {{ totalVotes }}</div>

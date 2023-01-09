@@ -10,16 +10,27 @@ import { Answer } from '../answer.interface';
 export class PollChartComponent {
   @Input() question: string = '';
   @Input() set answers(answers: Answer[]) {
+    const votes = [...answers.map((answer: Answer) => answer.votes)];
+
+    this.totalVotes = votes.reduce((sum, a) => sum + a, 0);
     this.basicData = {
-      labels: [...answers.map((answer: Answer) => answer.answer)],
+      labels: [
+        ...answers.map((answer: Answer) =>
+          answer.answer.length > 5
+            ? `${answer.answer.substring(0, this.maxLabelCharacters)}...`
+            : answer.answer
+        ),
+      ],
       datasets: [
         {
           label: 'Votes',
           backgroundColor: '#42A5F5',
-          data: [...answers.map((answer: Answer) => answer.votes)],
+          data: votes,
         },
       ],
     };
   }
   basicData: any;
+  totalVotes: number = 0;
+  readonly maxLabelCharacters = 10;
 }

@@ -7,6 +7,7 @@ import {
   Output,
 } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
+import { noWhitespace } from 'libs/utils/validators/no-whitespace/no-whitespace.validator';
 import {
   debounceTime,
   distinctUntilChanged,
@@ -28,22 +29,23 @@ export class PollCreatorComponent implements OnInit, OnDestroy {
   @Output() questionChange = new EventEmitter<string>();
   @Output() answerChange = new EventEmitter<AnswerChangeParams>();
   @Output() answerAdd = new EventEmitter<string>();
-  @Output() answerDelete = new EventEmitter<string>();
+  @Output() answerDelete = new EventEmitter<number>();
   @Output() answersReset = new EventEmitter<void>();
 
   private readonly destroy$ = new Subject<void>();
 
-  readonly maxAnswersAmount = 3;
-  readonly maxCharactersAmount = 3;
+  readonly maxAnswersAmount = 10;
+  readonly maxCharactersAmount = 80;
   readonly debounceTime = 300;
 
-  // TODO: newAnswer add noEmpty
   readonly form = new FormGroup({
     question: new FormControl(null, [
       Validators.maxLength(this.maxCharactersAmount),
+      noWhitespace,
     ]),
     newAnswer: new FormControl(null, [
       Validators.maxLength(this.maxCharactersAmount),
+      noWhitespace,
     ]),
     answers: new FormArray([]),
   });
@@ -55,26 +57,29 @@ export class PollCreatorComponent implements OnInit, OnDestroy {
   }
 
   addAnswer(value: string) {
-    const trimmedValue = value.trim();
+    const trimmedValue = value?.trim();
 
     if (trimmedValue && this.form.get('newAnswer')?.valid) {
       this.answers.push(
         new FormControl(trimmedValue, [
           Validators.maxLength(this.maxCharactersAmount),
           Validators.required,
+          noWhitespace,
         ])
       );
+
       this.form.get('newAnswer')?.reset();
       this.answerAdd.emit(value);
     }
   }
 
-  removeAnswer(index: number, answer: FormControl) {
+  removeAnswer(index: number) {
     this.answers.removeAt(index);
-    this.answerDelete.emit(answer.value);
+    this.answerDelete.emit(index);
   }
 
   reset() {
+    this.form.reset();
     this.answers.clear();
     this.answersReset.emit();
   }
@@ -93,31 +98,34 @@ export class PollCreatorComponent implements OnInit, OnDestroy {
         debounceTime(this.debounceTime),
         filter(() => !!this.form.get('question')?.valid)
       )
-      .subscribe((question: any) => {
-        // TODO: type
-        this.questionChange.next(question);
+      .subscribe((question: string | null) => {
+        const emitQuestion = question ? question : '';
+        this.questionChange.next(emitQuestion);
       });
   }
 
   private emitDataOnAnswerChange() {
     this.form
       .get('answers')
-      ?.valueChanges.pipe(
-        takeUntil(this.destroy$),
-        distinctUntilChanged(),
-        debounceTime(this.debounceTime),
-        startWith([]),
-        pairwise()
-      )
+      ?.valueChanges.pipe(takeUntil(this.destroy$), startWith([]), pairwise())
       .subscribe(([prevAnswers, nextAnswers]: [string[], string[]]) => {
         if (prevAnswers.length === nextAnswers.length) {
-          const newValue = nextAnswers.filter(
-            (answer: string) => !prevAnswers.includes(answer)
-          )[0];
-          const newValueIndex = nextAnswers.indexOf(newValue);
+          let newValueIndex: number | undefined;
+          for (const key in nextAnswers) {
+            if (nextAnswers[key] !== prevAnswers[key]) {
+              newValueIndex = +key;
+              break;
+            }
+          }
 
-          if (this.answers.controls[newValueIndex]?.valid) {
-            this.answerChange.next({ newValue, newValueIndex });
+          if (
+            newValueIndex !== undefined &&
+            this.answers.controls[newValueIndex]?.valid
+          ) {
+            this.answerChange.next({
+              newValue: nextAnswers[newValueIndex].trim(),
+              newValueIndex,
+            });
           }
         }
       });

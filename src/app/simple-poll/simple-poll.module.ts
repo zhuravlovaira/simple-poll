@@ -5,6 +5,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ButtonModule } from 'primeng/button';
 import { ChartModule } from 'primeng/chart';
 import { InputTextModule } from 'primeng/inputtext';
+import { MessageModule } from 'primeng/message';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { RippleModule } from 'primeng/ripple';
 import { PollChartComponent } from './poll-chart/poll-chart.component';
@@ -29,6 +30,7 @@ import { VoterComponent } from './voter/voter.component';
     RippleModule,
     RadioButtonModule,
     ChartModule,
+    MessageModule,
   ],
   exports: [SimplePollComponent],
 })

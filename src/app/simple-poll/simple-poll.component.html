@@ -3,6 +3,7 @@
 <section class="poll">
   <div class="poll__section">
     <app-poll-creator
+      class="poll__component"
       (questionChange)="onQuestionChange($event)"
       (answerChange)="onAnswerChange($event)"
       (answerAdd)="onAnswerAdd($event)"
@@ -12,6 +13,7 @@
   </div>
   <div class="poll__section">
     <app-voter
+      class="poll__component"
       [question]="question"
       [answers]="answers$ | async"
       (addVote)="onAddVote($event)"
@@ -19,6 +21,7 @@
   </div>
   <div class="poll__section">
     <app-poll-chart
+      class="poll__component"
       [question]="question"
       [answers]="answers$ | async"
     ></app-poll-chart>

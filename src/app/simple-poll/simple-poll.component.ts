@@ -33,23 +33,18 @@ export class SimplePollComponent {
     this.answers$.next([...answers]);
   }
 
-  onAnswerDelete(answer: string) {
+  onAnswerDelete(answerIndex: number) {
     const answers = this.answers$.getValue();
-    const newAnswers = answers.filter(
-      (oldAnswer: Answer) => oldAnswer.answer !== answer
-    );
-    this.answers$.next([...newAnswers]);
+    answers.splice(answerIndex, 1);
+    this.answers$.next([...answers]);
   }
 
   onAnswersReset() {
     this.answers$.next([]);
   }
 
-  onAddVote(answer: string) {
+  onAddVote(answerIndex: number) {
     const answers = this.answers$.getValue();
-    const answerIndex = answers.findIndex(
-      (targetAnswer: Answer) => targetAnswer.answer === answer
-    );
     answers[answerIndex].votes++;
     this.answers$.next([...answers]);
   }
