@@ -1,27 +1,44 @@
 # SimplePoll
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.0.1.
+App is hosted on `https://startling-toffee-dd4016.netlify.app`
 
-## Development server
+If you want to test the app locally please pull the project, run:
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+```
+npm i
+npm start
+```
 
-## Code scaffolding
+Navigate to `http://localhost:4200/`
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+![Main page](src\assets\readme\main-page.png)
 
-## Build
+## Development details
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+The app is using `changeDetection: ChangeDetectionStrategy.OnPush` for all components for better performance, hence all data in the app is immutable.
 
-## Running unit tests
+`PrimeNG` components library was used for visial part and building chart.
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+## e2e tests
 
-## Running end-to-end tests
+If you want to run tests locally please run:
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+```
+npm start
+```
 
-## Further help
+And in parallel:
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+```
+npm run open:cypress
+```
+
+Main blocks are covered such as:
+
+1. Answers form
+
+2. Votes
+
+3. Reset
+
+4. Question input
