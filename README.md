@@ -26,6 +26,7 @@ If you want to run unit tests locally please run:
 ```
 npm run test
 ```
+![unit-tests](https://user-images.githubusercontent.com/17531782/211743531-168ea871-91ec-4559-a815-c01569cbfea0.png)
 
 ## e2e tests
 
