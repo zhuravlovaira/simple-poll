@@ -19,9 +19,17 @@ The app is using `changeDetection: ChangeDetectionStrategy.OnPush` for all compo
 
 `PrimeNG` components library was used for visial part and building chart.
 
+## Unit tests
+
+If you want to run unit tests locally please run:
+
+```
+npm run test
+```
+
 ## e2e tests
 
-If you want to run tests locally please run:
+If you want to run e2e tests locally please run:
 
 ```
 npm start
@@ -50,4 +58,3 @@ https://user-images.githubusercontent.com/17531782/211712748-4c0e9a0a-9ea5-4daa-
 4. Question input
 
 https://user-images.githubusercontent.com/17531782/211712772-e00a58bc-07cd-45c9-bef6-4c5769f7abf6.mp4
-

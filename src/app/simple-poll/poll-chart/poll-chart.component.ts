@@ -16,7 +16,7 @@ export class PollChartComponent {
     this.basicData = {
       labels: [
         ...answers.map((answer: Answer) =>
-          answer.answer.length > 5
+          answer.answer.length > this.maxLabelCharacters
             ? `${answer.answer.substring(0, this.maxLabelCharacters)}...`
             : answer.answer
         ),

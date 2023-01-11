@@ -39,15 +39,15 @@ export class PollCreatorComponent implements OnInit, OnDestroy {
   readonly debounceTime = 300;
 
   readonly form = new FormGroup({
-    question: new FormControl(null, [
+    question: new FormControl<string | null>(null, [
       Validators.maxLength(this.maxCharactersAmount),
       noWhitespace,
     ]),
-    newAnswer: new FormControl(null, [
+    newAnswer: new FormControl<string | null>(null, [
       Validators.maxLength(this.maxCharactersAmount),
       noWhitespace,
     ]),
-    answers: new FormArray([]),
+    answers: new FormArray<FormControl<string>>([]),
   });
 
   answers = this.form.get('answers') as FormArray;
