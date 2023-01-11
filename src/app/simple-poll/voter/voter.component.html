@@ -1,15 +1,19 @@
 <div>
-  <span *ngIf="question" class="title">{{ question }}</span>
+  <span *ngIf="question" class="title" data-cy="voter-question">{{
+    question
+  }}</span>
 
   <p-message
     *ngIf="answersKeys.length < minimumItems"
     severity="warn"
     text="To start voting add at least 2 items"
+    data-cy="warm-message"
   ></p-message>
   <p-message
     *ngIf="answersKeys.length >= minimumItems"
     severity="success"
     text="Please make your choice"
+    data-cy="make-choice-message"
   ></p-message>
 
   <div
@@ -21,8 +25,14 @@
       [value]="i"
       [(ngModel)]="selectedIndex"
       [disabled]="answersKeys.length < minimumItems"
+      data-cy="vote-radio-button"
     ></p-radioButton>
-    <label class="radio-button__label" [for]="i">{{ answer }}</label>
+    <label
+      class="radio-button__label"
+      [for]="i"
+      data-cy="vote-radio-button-label"
+      >{{ answer }}</label
+    >
   </div>
 </div>
 
@@ -39,5 +49,6 @@
     type="button"
     label="Vote"
     class="p-button-outlined p-button-primary"
+    data-cy="vote-button"
   ></button>
 </div>

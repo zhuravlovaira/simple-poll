@@ -8,6 +8,7 @@
       pInputText
       placeholder="What is the value of P?"
       [maxlength]="maxCharactersAmount"
+      data-cy="question-input"
     />
     <label for="float-input">Poll question</label>
     <small *ngIf="form.get('question')?.errors?.maxlength" class="p-error block"
@@ -16,11 +17,16 @@
     <small
       *ngIf="form.get('question')?.errors?.noWhitespace"
       class="p-error block"
+      data-cy="question-no-whitespace-error"
       >Empty value is not allowed</small
     >
   </span>
 
-  <div *ngFor="let answer of answers.controls; let i = index" class="answer">
+  <div
+    *ngFor="let answer of answers.controls; let i = index"
+    class="answer"
+    data-cy="answer"
+  >
     <span class="p-float-label answer__input-wrap">
       <input
         [formControl]="answer"
@@ -28,6 +34,7 @@
         class="answer__input"
         pInputText
         [maxlength]="maxCharactersAmount"
+        data-cy="answer-input"
       />
       <ng-container
         *ngIf="answer?.invalid && (answer?.dirty || answer?.touched)"
@@ -35,10 +42,16 @@
         <small *ngIf="answer?.errors?.maxlength" class="p-error block"
           >Maximum amount of characters is {{ maxCharactersAmount }}</small
         >
-        <small *ngIf="answer?.errors?.required" class="p-error block"
+        <small
+          *ngIf="answer?.errors?.required"
+          class="p-error block"
+          data-cy="new-field-is-required-error"
           >Field is required</small
         >
-        <small *ngIf="answer?.errors?.noWhitespace" class="p-error block"
+        <small
+          *ngIf="answer?.errors?.noWhitespace"
+          class="p-error block"
+          data-cy="answer-no-whitespace-error"
           >Empty value is not allowed</small
         >
       </ng-container>
@@ -51,6 +64,7 @@
       type="button"
       icon="pi pi-times"
       class="p-button-rounded p-button-danger p-button-outlined answer__delete-button"
+      data-cy="remove-answer-button"
     ></button>
   </div>
 
@@ -63,6 +77,7 @@
         class="answer__input"
         pInputText
         [maxlength]="maxCharactersAmount"
+        data-cy="new-answer-input"
       />
 
       <ng-container
@@ -79,6 +94,7 @@
         <small
           *ngIf="form.get('newAnswer')?.errors?.noWhitespace"
           class="p-error block"
+          data-cy="new-answer-no-whitespace-error"
           >Empty value is not allowed</small
         >
       </ng-container>
@@ -94,6 +110,7 @@
       type="button"
       label="Add"
       class="p-button-outlined answer__delete-button"
+      data-cy="add-answer-button"
     ></button>
   </div>
 </form>
@@ -109,5 +126,6 @@
     type="button"
     label="Reset"
     class="p-button-outlined p-button-warning"
+    data-cy="reset-button"
   ></button>
 </div>

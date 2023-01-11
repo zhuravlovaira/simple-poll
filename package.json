@@ -7,7 +7,8 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "format:prettier": "pretty-quick --staged"
+    "format:prettier": "pretty-quick --staged",
+    "open:cypress": "cypress open"
   },
   "private": true,
   "dependencies": {
@@ -33,6 +34,7 @@
     "@angular/compiler-cli": "^15.0.0",
     "@schematics/angular": "^15.0.4",
     "@types/jasmine": "~4.3.0",
+    "cypress": "^12.3.0",
     "husky": "^8.0.3",
     "jasmine-core": "~4.5.0",
     "karma": "~6.4.0",
